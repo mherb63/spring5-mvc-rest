@@ -1,7 +1,9 @@
 package guru.springfamework.bootstrap;
 
 import guru.springfamework.domain.Category;
+import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CategoryRepository;
+import guru.springfamework.repositories.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -11,14 +13,20 @@ import org.springframework.stereotype.Component;
 public class Bootstrap implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
+    private final CustomerRepository customerRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository) {
+    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
         this.categoryRepository = categoryRepository;
+        this.customerRepository = customerRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        loadCategories();
+        loadCustomers();
+    }
 
+    private void loadCategories() {
         Category fruits = new Category();
         fruits.setName("Fruits");
         categoryRepository.save(fruits);
@@ -38,9 +46,12 @@ public class Bootstrap implements CommandLineRunner {
         Category nuts = new Category();
         nuts.setName("Nuts");
         categoryRepository.save(nuts);
+    }
 
-        log.info("Categories loaded, count: " + categoryRepository.count());
-
-
+    private void loadCustomers() {
+        customerRepository.save(new Customer(1L, "Joe", "Newman"));
+        customerRepository.save(new Customer(2L, "Michael", "Lachappele"));
+        customerRepository.save(new Customer(3L, "David", "Winter"));
+        customerRepository.save(new Customer(4L, "Anne", "Hine"));
     }
 }
