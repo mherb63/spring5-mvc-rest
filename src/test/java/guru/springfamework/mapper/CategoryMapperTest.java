@@ -1,8 +1,7 @@
-package guru.springfamework.api.vi.mapper;
+package guru.springfamework.mapper;
 
 import guru.springfamework.domain.Category;
 import guru.springfamework.dto.CategoryDTO;
-import guru.springfamework.mapper.CategoryMapper;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
