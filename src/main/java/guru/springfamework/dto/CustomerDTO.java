@@ -1,10 +1,13 @@
 package guru.springfamework.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class CustomerDTO {
     String firstname;
     String lastname;
-    String customer_url;
+
+    @JsonProperty("customer_url")
+    String customerUrl;
 }
