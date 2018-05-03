@@ -1,13 +1,13 @@
-package guru.springfamework.api.v1.mapper;
+package guru.springfamework.mapper;
 
-import guru.springfamework.api.v1.model.CategoryDTO;
 import guru.springfamework.domain.Category;
+import guru.springfamework.dto.CategoryDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface CategoryMapper {
 
     CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
