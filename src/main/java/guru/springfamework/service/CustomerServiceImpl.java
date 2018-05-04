@@ -64,6 +64,11 @@ public class CustomerServiceImpl implements CustomerService {
                 }).orElseThrow(() -> new RuntimeException("No customer found with id: " + id));
     }
 
+    @Override
+    public void deleteCustomerById(Long id) {
+        customerRepository.deleteById(id);
+    }
+
     private CustomerDTO getCustomerDTO(Customer customer) {
         CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
         customerDTO.setCustomerUrl("/customer/" + customer.getId());
