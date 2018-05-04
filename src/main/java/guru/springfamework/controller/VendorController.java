@@ -3,10 +3,12 @@ package guru.springfamework.controller;
 import guru.springfamework.dto.VendorDTO;
 import guru.springfamework.dto.VendorListDTO;
 import guru.springfamework.service.VendorService;
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Api(description = "Perform CRUD Operations on Vendor Resource")
 public class VendorController {
     public static final String BASE_URL = "/vendor";
 
@@ -16,13 +18,13 @@ public class VendorController {
         this.vendorService = vendorService;
     }
 
-    @RequestMapping("/vendor")
+    @GetMapping("/vendor")
     @ResponseStatus(HttpStatus.OK)
     public VendorListDTO getVendors() {
         return vendorService.getAllVendors();
     }
 
-    @RequestMapping("/vendor/{id}")
+    @GetMapping("/vendor/{id}")
     @ResponseStatus(HttpStatus.OK)
     public VendorDTO getVendorById(@PathVariable Long id) {
         return vendorService.getVendorById(id);
