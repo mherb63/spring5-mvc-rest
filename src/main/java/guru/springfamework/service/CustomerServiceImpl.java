@@ -47,10 +47,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO updateCustomer(CustomerDTO customerDTO, Long id) {
-        Customer c = customerRepository.findById(id).get();
-        c.setFirstname(customerDTO.getFirstname());
-        c.setLastname(customerDTO.getLastname());
-        return getCustomerDTO(customerRepository.save(c));
+        Optional<Customer> c = customerRepository.findById(id);
+        if (! c.isPresent()) {
+            throw new ResourceNotFoundException("No customer found with id: " + id);
+        }
+        Customer customer = c.get();
+        customer.setFirstname(customerDTO.getFirstname());
+        customer.setLastname(customerDTO.getLastname());
+        return getCustomerDTO(customerRepository.save(customer));
     }
 
     @Override
@@ -62,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
                 if (customerDTO.getLastname() != null) {
                     customer.setLastname(customerDTO.getLastname());
                 }
-                return getCustomerDTO(customer);
+                return getCustomerDTO(customerRepository.save(customer));
                 }).orElseThrow(() -> new ResourceNotFoundException("No customer found with id: " + id));
     }
 

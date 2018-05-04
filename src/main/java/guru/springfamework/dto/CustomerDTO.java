@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 public class CustomerDTO {
-    String firstname;
-    String lastname;
+    private String firstname;
+    private String lastname;
 
     @JsonProperty("customer_url")
-    String customerUrl;
+    private String customerUrl;
 }
