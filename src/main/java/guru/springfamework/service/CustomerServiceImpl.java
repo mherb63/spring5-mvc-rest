@@ -1,5 +1,6 @@
 package guru.springfamework.service;
 
+import guru.springfamework.Exception.ResourceNotFoundException;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.dto.CustomerDTO;
 import guru.springfamework.dto.CustomerListDTO;
@@ -8,6 +9,7 @@ import guru.springfamework.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO getCustomerById(Long id) {
         return customerRepository.findById(id)
                 .map(customer -> {return getCustomerDTO(customer);})
-                .orElseThrow(() -> new RuntimeException("No customer found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("No customer found with id: " + id));
     }
 
     @Override
@@ -61,11 +63,15 @@ public class CustomerServiceImpl implements CustomerService {
                     customer.setLastname(customerDTO.getLastname());
                 }
                 return getCustomerDTO(customer);
-                }).orElseThrow(() -> new RuntimeException("No customer found with id: " + id));
+                }).orElseThrow(() -> new ResourceNotFoundException("No customer found with id: " + id));
     }
 
     @Override
     public void deleteCustomerById(Long id) {
+        Optional<Customer> customer = customerRepository.findById(id);
+        if (! customer.isPresent()) {
+            throw new ResourceNotFoundException("No customer found with id: " + id);
+        }
         customerRepository.deleteById(id);
     }
 
