@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class VendorController {
+    public static final String BASE_URL = "/vendor";
 
     private final VendorService vendorService;
 
@@ -28,7 +29,7 @@ public class VendorController {
     }
 
     @PostMapping("/vendor")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public VendorDTO createVendor(@RequestBody VendorDTO vendorDTO) {
         return vendorService.createVendor(vendorDTO);
     }
